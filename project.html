@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Alex Alcott</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#181818;
+    --grid-line:rgba(199,163,163,0.12);
+    --paper:#f6f4f1;
+    --paper-dim:#ded9d1;
+    --ink:#1c1414;
+    --maroon:#500000;
+    --maroon-bright:#7a1414;
+    --grey:#9a9a9a;
+    --grey-light:#c9c9c9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  a{color:inherit}
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.02em}
+
+  .topbar{
+    background:var(--maroon);
+    padding:20px 8vw 34px;
+    border-bottom:3px solid var(--ink);
+  }
+  .topbar-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    padding-bottom:26px;
+  }
+  .topbar-links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    text-decoration:none;
+    color:rgba(255,255,255,.8);
+  }
+  .topbar-links a:hover{color:#fff}
+  .topbar-main{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .topbar-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2.6rem,7vw,5.5rem);
+    line-height:.98;
+    color:#fff;
+    text-align:center;
+  }
+
+  .hero{
+    position:relative;
+    background:#fff;
+    color:var(--ink);
+    padding:64px 8vw 54px;
+    text-align:center;
+    overflow:hidden;
+    border-bottom:1px solid rgba(0,0,0,.1);
+  }
+  .sheet-frame{
+    position:absolute;
+    inset:20px;
+    border:1px solid rgba(0,0,0,.14);
+    pointer-events:none;
+  }
+  .hero .eyebrow{
+    color:#6b6f76;
+    font-size:.72rem;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    color:var(--ink);
+    font-size:clamp(2.2rem,5vw,4rem);
+    margin-bottom:14px;
+  }
+  .hero .subtitle{
+    max-width:65ch;
+    margin:0 auto;
+    color:#454951;
+  }
+
+  main{padding:72px 8vw 90px}
+  .project-content{
+    max-width:900px;
+    margin:0 auto;
+  }
+
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--maroon-bright);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:10px;
+  }
+
+  .project-image{
+    width:100%;
+    min-height:390px;
+    margin:0 0 42px;
+    background:
+      repeating-linear-gradient(45deg,var(--paper-dim) 0 2px,transparent 2px 14px),
+      var(--paper);
+    border:2px solid var(--ink);
+    color:var(--maroon);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.75rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .project-image img{
+    display:block;
+    width:100%;
+    height:auto;
+    object-fit:contain;
+  }
+
+  .copy{
+    margin:0 auto 48px;
+  }
+  .copy h2{
+    font-size:clamp(1.35rem,3vw,2rem);
+    margin-bottom:14px;
+  }
+  .copy p{
+    max-width:75ch;
+    color:var(--grey-light);
+    font-size:1rem;
+    margin-bottom:16px;
+  }
+
+  .image-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+    margin:32px 0 52px;
+  }
+  .image-grid .project-image{
+    min-height:250px;
+    margin:0;
+  }
+
+  .project-meta{
+    border-top:2px solid var(--paper);
+    border-bottom:1px solid rgba(201,201,201,.35);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    margin:48px 0 54px;
+  }
+  .project-meta div{
+    padding:18px 16px;
+    border-right:1px solid rgba(201,201,201,.25);
+  }
+  .project-meta div:last-child{border-right:0}
+  .project-meta span{
+    display:block;
+    color:var(--maroon-bright);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.62rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:5px;
+  }
+
+  .back-link{
+    display:inline-block;
+    padding:11px 18px;
+    background:var(--maroon);
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .back-link:hover{background:var(--maroon-bright)}
+
+  footer{
+    padding:48px 8vw;
+    border-top:1px solid var(--grid-line);
+    text-align:center;
+    color:var(--grey);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.68rem;
+  }
+
+  @media(max-width:700px){
+    .topbar{padding:16px 6vw 30px}
+    .hero{padding:52px 6vw 44px}
+    main{padding:54px 6vw 70px}
+    .image-grid{grid-template-columns:1fr}
+    .project-meta{grid-template-columns:1fr}
+    .project-meta div{border-right:0;border-bottom:1px solid rgba(201,201,201,.25)}
+    .project-meta div:last-child{border-bottom:0}
+    .project-image{min-height:260px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <nav class="topbar-links">
+    <a href="mailto:alex.alcott.meen@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/alex-alcott-736926347/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="index.html">Portfolio</a>
+  </nav>
+  <div class="topbar-main">
+    <div class="topbar-name">PROJECT</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="sheet-frame"></div>
+  <div class="eyebrow mono" id="project-number">PROJECT 01</div>
+  <h1 id="project-title">Project 1</h1>
+  <p class="subtitle" id="project-subtitle">Detailed project documentation, engineering process, and results.</p>
+</section>
+
+<main>
+  <div class="project-content">
+
+    <div class="section-label">01 / Overview</div>
+    <div class="project-image">
+      <span>MAIN PROJECT IMAGE — PLACE IMAGE HERE</span>
+      <!-- Replace the placeholder above with:
+      <img src="images/project-1-main.jpg" alt="Project 1 main image">
+      -->
+    </div>
+
+    <section class="copy">
+      <h2>Project Overview</h2>
+      <p>
+        Write a detailed description of the project here. Explain the problem,
+        what you designed or built, your role, and the final result.
+      </p>
+      <p>
+        This area is intentionally open-ended so you can tell the story of the
+        project in enough technical detail for a MEEN career fair recruiter.
+      </p>
+    </section>
+
+    <div class="section-label">02 / Engineering Process</div>
+    <div class="image-grid">
+      <div class="project-image">
+        <span>PROCESS IMAGE 01</span>
+        <!-- <img src="images/project-1-process-1.jpg" alt="Project 1 process image"> -->
+      </div>
+      <div class="project-image">
+        <span>PROCESS IMAGE 02</span>
+        <!-- <img src="images/project-1-process-2.jpg" alt="Project 1 process image"> -->
+      </div>
+    </div>
+
+    <section class="copy">
+      <h2>Design &amp; Development</h2>
+      <p>
+        Describe your engineering approach here: requirements, calculations,
+        CAD work, prototyping, testing, manufacturing, iteration, or analysis.
+      </p>
+      <p>
+        You can add as many paragraphs as needed. The page will grow naturally
+        with the amount of content you add.
+      </p>
+    </section>
+
+    <div class="section-label">03 / Results</div>
+    <div class="project-image">
+      <span>RESULTS / FINAL BUILD IMAGE</span>
+      <!-- <img src="images/project-1-final.jpg" alt="Project 1 final result"> -->
+    </div>
+
+    <section class="copy">
+      <h2>Results &amp; Takeaways</h2>
+      <p>
+        Explain what the project accomplished, the measurable results, what
+        you learned, and anything you would improve in another iteration.
+      </p>
+    </section>
+
+    <div class="project-meta">
+      <div><span>Project</span><strong id="meta-project">01</strong></div>
+      <div><span>Category</span><strong id="meta-category">Engineering Design</strong></div>
+      <div><span>Tools</span><strong id="meta-tools">CAD / Analysis / Fabrication</strong></div>
+    </div>
+
+    <a class="back-link" href="index.html">← Back to Portfolio</a>
+  </div>
+</main>
+
+<footer>
+  ALEX ALCOTT — MECHANICAL ENGINEERING PORTFOLIO
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const rawProject = parseInt(params.get('project') || '1', 10);
+  const projectNumber = Number.isFinite(rawProject) && rawProject > 0 ? rawProject : 1;
+
+  document.getElementById('project-number').textContent =
+    `PROJECT ${String(projectNumber).padStart(2, '0')}`;
+  document.getElementById('project-title').textContent = `Project ${projectNumber}`;
+  document.getElementById('meta-project').textContent =
+    String(projectNumber).padStart(2, '0');
+  document.title = `Project ${projectNumber} — Alex Alcott`;
+</script>
+
+</body>
+</html>
